@@ -64,11 +64,11 @@ class Pokeymon
     end
 end
 
-## is this ok?
+## is this ok? its from tty-prompt gem
 trainer = prompt.ask('What is your name?', default: "Larry")
 trainer = Pokeymon.new
 
-puts "Lets catch your first pokeymon!"
+puts "Lets catch your first Pokeymon!"
 
     # tty spinner gem for suspense
     spinner = TTY::Spinner.new("[:spinner] Looking for pokeymon ...", format: :spin_2)
@@ -100,7 +100,7 @@ user_input = prompt.select("Choose your option?") do |menu|
                     when 'Catch Pokeymon'
                         
                         # tty spinner gem 
-                        spinner = TTY::Spinner.new("[:spinner] Looking for pokeymon ...", format: :bouncing_ball)
+                        spinner = TTY::Spinner.new("[:spinner] Looking for Pokeymon ...", format: :bouncing_ball)
                         spinner.auto_spin 
                         sleep(5) 
                         spinner.stop('Done!') # Stop animation
@@ -110,7 +110,7 @@ user_input = prompt.select("Choose your option?") do |menu|
                     when 'Train Pokeymon'
         
                         # tty spinner gem
-                        spinner = TTY::Spinner.new("[:spinner] Traning Pokeymon")
+                        spinner = TTY::Spinner.new("[:spinner] Training Pokeymon")
                         spinner.auto_spin
                         sleep(5)
                         spinner.success('(successful)')            
@@ -120,18 +120,30 @@ user_input = prompt.select("Choose your option?") do |menu|
                     when 'Play Pokeymon'
         
                         # tty spinner gem
-                        spinner = TTY::Spinner.new("[:spinner] Traning Pokeymon")
-                        spinner.auto_spin
-                        sleep(5)
-                        spinner.success('(successful)')            
-                        spinner.stop # Stop animation
+                        spinner = TTY::Spinner.new("[:spinner] Playing with Pokeymon ...", format: :bouncing)
+                        spinner.auto_spin 
+                        sleep(5) 
+                        spinner.stop('Done!') # Stop animation
         
                         puts trainer.playing_pokeymon
                     when 'Feed Pokeymon'
+                        
+                        spinner = TTY::Spinner.new("[:spinner] Feeding the Pokeymon ...", format: :spin_3)
+                        spinner.auto_spin 
+                        sleep(5) 
+                        spinner.stop('Done!') # Stop animation
+                        
                         puts trainer.feeding_pokeymon
                     when 'List of Pokeymon'
+                        
+                        spinner = TTY::Spinner.new("[:spinner] Counting the Pokeymon ...", format: :arrow_pulse)
+                        spinner.auto_spin 
+                        sleep(5) 
+                        spinner.stop('Done!') # Stop animation
+                        
                         puts trainer.catched_pokeymon
                     when 'Exit game'
+                        puts "Thanks for Playing"
                         not_quiting = true
                 end
 end
