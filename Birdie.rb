@@ -83,8 +83,12 @@ until not_quiting do
         spinner.auto_spin 
         sleep(1) 
         spinner.stop('Done!')
-        wilson.list_stocks
         
+        
+         wilson.list_stocks 
+        
+        
+
     when "Exit"
         not_quiting = true
     end
