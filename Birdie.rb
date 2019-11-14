@@ -1,30 +1,17 @@
 #gems
 require "tty-prompt"
+require "tty-font"
+require "pastel"
+require "tty-box"
+require "tty-spinner"
+require "./Breeder"
+
 prompt = TTY::Prompt.new
+pastel = Pastel.new
+font = TTY::Font.new(:doom)
 
-class Breeder 
-    
-    attr_reader :collection
 
-    def initialize
-        @collection = []
-    end
-    
-    def update_database(bird)
-        @collection.push(bird)
-        
-    end
-    
-    def list_stocks
-        
-        @collection.each do |x|
-            p x.type
-        end
-     
-    end
 
-    
-end
 
 class Bird 
         attr_accessor :id_tag, :mutation, :sex, :age, :type
@@ -43,9 +30,13 @@ class Bird
         end
     
 end
+wilson = Breeder.new
  
 not_quiting = false
 until not_quiting do
+    pastel = Pastel.new
+    
+    puts pastel.red(font.write("BIRDIE"))
     
     user_input = prompt.select("Please Select from the following?") do |menu|
         menu.choice "Bird Database"
@@ -54,12 +45,13 @@ until not_quiting do
         menu.choice "List All Stocks"
         menu.choice "Exit"
     end
-   
+    
     
     case user_input
         
+        
     when "Bird Database"
-        bird_id_tag = prompt.ask("Enter Id tag", convert: :int) #tty prompt
+        bird_id_tag = prompt.ask("Enter Id tag", convert: :string) #tty prompt
         bird_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
         bird_mutation = prompt.ask('Whats the Mutation? (include everything)') do |q| #tty prompt
             q.convert -> (input) { input.split(/,\s*/) } #tty prompt
@@ -73,28 +65,30 @@ until not_quiting do
         puts lovebird.mutation
         puts lovebird.sex
         puts lovebird.age
-         
-        wilson = Breeder.new
-
         
-
+        wilson.update_database(lovebird) #working
         
-            # tty prompt gem for hitting spacebar or enter to continue
+        
+        
+        
+        # tty prompt gem for hitting spacebar or enter to continue
         prompt.keypress("Press space or enter to continue", keys: [:space, :return])
         system("clear") 
-             
         
-        when "Bird Genetic Calculator"
-        when "Bird Tips and Reminder"
-        when "List All Stocks"
-            
-             p wilson.update_database(lovebird) #working
-             wilson.list_stocks
-            
-        when "Exit"
+        
+    when "Bird Genetic Calculator"
+    when "Bird Tips and Reminder"
+    when "List All Stocks"
+        spinner = TTY::Spinner.new("[:spinner] Checking the stocks. Please Wait ...", format: :bouncing_ball)
+        spinner.auto_spin 
+        sleep(1) 
+        spinner.stop('Done!')
+        wilson.list_stocks
+        
+    when "Exit"
         not_quiting = true
     end
-
+    
 end
 
-    
+
