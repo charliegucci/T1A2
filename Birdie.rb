@@ -9,9 +9,7 @@ require "./Breeder"
 prompt = TTY::Prompt.new
 pastel = Pastel.new
 font = TTY::Font.new(:doom)
-
-
-
+pastel = Pastel.new
 
 class Bird 
         attr_accessor :id_tag, :mutation, :sex, :age, :type
@@ -30,14 +28,15 @@ class Bird
         end
     
 end
+
 wilson = Breeder.new
  
 not_quiting = false
 until not_quiting do
-    pastel = Pastel.new
     
-    puts pastel.red(font.write("BIRDIE"))
     
+    puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
+            # Uses TTY-Prompt Gem for the Menus
     user_input = prompt.select("Please Select from the following?") do |menu|
         menu.choice "Bird Database"
         menu.choice "Bird Genetic Calculator"
@@ -49,50 +48,43 @@ until not_quiting do
     
     case user_input
         
-        
-    when "Bird Database"
-        bird_id_tag = prompt.ask("Enter Id tag", convert: :string) #tty prompt
+                # Uses TTY-Prompt Gem to collect data
+        when "Bird Database"
+        bird_id_tag = prompt.ask("Enter Id tag", convert: :string) 
         bird_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
-        bird_mutation = prompt.ask('Whats the Mutation? (include everything)') do |q| #tty prompt
-            q.convert -> (input) { input.split(/,\s*/) } #tty prompt
-        end
-        bird_sex = prompt.select("Please Select Sex?", %w(Cock Hen)) #tty prompt
-        bird_age = prompt.ask("How old?  (months)", convert: :int) #tty prompt
-        
+        bird_mutation = prompt.ask("Please type Mutation", convert: :string) 
+        bird_sex = prompt.select("Please Select Sex?", %w(Cock Hen)) 
+        bird_age = prompt.ask("How old?  (months)", convert: :int) 
+
         lovebird = Bird.new(bird_id_tag, bird_type, bird_mutation,bird_sex, bird_age)
-        puts lovebird.id_tag
-        puts lovebird.type
-        puts lovebird.mutation
-        puts lovebird.sex
-        puts lovebird.age
         
-        wilson.update_database(lovebird) #working
-        
-        
-        
+        wilson.update_database(lovebird) # Pushes the collected data to an array at the Breeders Class
         
         # tty prompt gem for hitting spacebar or enter to continue
         prompt.keypress("Press space or enter to continue", keys: [:space, :return])
         system("clear") 
         
         
-    when "Bird Genetic Calculator"
-    when "Bird Tips and Reminder"
-    when "List All Stocks"
+        when "Bird Genetic Calculator"
+        when "Bird Tips and Reminder"
+        when "List All Stocks"
         spinner = TTY::Spinner.new("[:spinner] Checking the stocks. Please Wait ...", format: :bouncing_ball)
         spinner.auto_spin 
         sleep(1) 
         spinner.stop('Done!')
         
+        wilson.list_stocks
         
-         wilson.list_stocks 
+        prompt.keypress("Press any key to continue, resumes automatically in :countdown ...", timeout: 10)
+        system("clear")
         
-        
-
-    when "Exit"
-        not_quiting = true
+        when "Exit"
+            user_input = prompt.yes?('Are you sure you want to Quit?')
+            not_quiting = true if user_input
+        system("clear")
+          
     end
     
 end
 
-
+system("clear")

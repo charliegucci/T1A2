@@ -1,4 +1,7 @@
-class Breeder 
+
+
+class Breeder
+    
     
     attr_reader :collection
 
@@ -7,16 +10,25 @@ class Breeder
     end
     
     def update_database(bird)
+        spinner = TTY::Spinner.new("[:spinner] Adding...")
+        spinner.auto_spin
         @collection.push(bird)
-       p @collection 
+        @collection.each do |element|
+        sleep(2)
+        spinner.stop('Done!')
+        end
     end
     
     def list_stocks
         
-        @collection.each do |x|
-            puts "Added #{x.type} #{x.mutation} Tag is #{x.type} #{x.sex} Bird" 
+        @collection.each do |element|
+            puts "#{element.type} #{element.mutation} Tag is #{element.id_tag} #{element.sex} Bird" 
+            
+            
+            
         end
-     
+        
     end
-
+    
+    
 end
