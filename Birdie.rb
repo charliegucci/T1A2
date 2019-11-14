@@ -1,34 +1,35 @@
+#gems
 require "tty-prompt"
 prompt = TTY::Prompt.new
 
-class Breeder
+class Breeder 
     
-    attr_accessor :collection
+    attr_reader :collection
 
     def initialize
         @collection = []
     end
     
-    def update_database
-        @collection.push(Bird.new)
-        "update"
+    def update_database(bird)
+        @collection.push(bird)
+        
     end
     
     def list_stocks
         
         @collection.each do |x|
-            puts x
+            p x.type
         end
-        "List"
+     
     end
 
     
 end
 
-class Bird
+class Bird 
         attr_accessor :id_tag, :mutation, :sex, :age, :type
         
-        def initialize
+        def initialize(id_tag, type, mutation, sex, age)
             @id_tag = id_tag
             @type = type
             @mutation = mutation
@@ -36,7 +37,7 @@ class Bird
             @age = age
         end
     
-        def adding_bird(user_input5, user_input1, user_input2, user_input3, user_input4)
+        def adding_bird
 
             "bird added"
         end
@@ -58,28 +59,37 @@ until not_quiting do
     case user_input
         
     when "Bird Database"
-        user_input5 = prompt.ask("Enter Id tag", convert: :int)
-        user_input1 = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
-        user_input2 = prompt.ask('Whats the Mutation? (include everything)') do |q|
-            q.convert -> (input) { input.split(/,\s*/) }
+        bird_id_tag = prompt.ask("Enter Id tag", convert: :int) #tty prompt
+        bird_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
+        bird_mutation = prompt.ask('Whats the Mutation? (include everything)') do |q| #tty prompt
+            q.convert -> (input) { input.split(/,\s*/) } #tty prompt
         end
-        user_input3 = prompt.select("Please Select Sex?", %w(Cock Hen))
-        user_input4 = prompt.ask("How old?  (months)", convert: :int)
+        bird_sex = prompt.select("Please Select Sex?", %w(Cock Hen)) #tty prompt
+        bird_age = prompt.ask("How old?  (months)", convert: :int) #tty prompt
         
-        lovebird = Bird.new
+        lovebird = Bird.new(bird_id_tag, bird_type, bird_mutation,bird_sex, bird_age)
+        puts lovebird.id_tag
+        puts lovebird.type
+        puts lovebird.mutation
+        puts lovebird.sex
+        puts lovebird.age
+         
         wilson = Breeder.new
 
-            puts lovebird.adding_bird("#{user_input5}","#{user_input1}","#{ user_input2}","#{user_input3}","#{user_input4}")
- # tty prompt gem for hitting spacebar or enter to continue
- prompt.keypress("Press space or enter to continue", keys: [:space, :return])
- system("clear") 
+        
+
+        
+            # tty prompt gem for hitting spacebar or enter to continue
+        prompt.keypress("Press space or enter to continue", keys: [:space, :return])
+        system("clear") 
              
         
         when "Bird Genetic Calculator"
         when "Bird Tips and Reminder"
         when "List All Stocks"
-             puts   wilson.update_database
-               puts wilson.list_stocks
+            
+             p wilson.update_database(lovebird) #working
+             wilson.list_stocks
             
         when "Exit"
         not_quiting = true
@@ -87,4 +97,4 @@ until not_quiting do
 
 end
 
-    puts user_input2
+    
