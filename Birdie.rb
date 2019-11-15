@@ -12,7 +12,7 @@ require 'yaml'
 prompt = TTY::Prompt.new
 pastel = Pastel.new
 font = TTY::Font.new(:doom)
-pastel = Pastel.new
+
 
 class Bird 
         attr_accessor :id_tag, :mutation, :sex, :age, :type
@@ -89,49 +89,10 @@ until not_quiting do
         prompt.keypress("Press space or enter to continue", keys: [:space, :return])
         system("clear") 
         
-        
         when "Bird Genetic Calculator"
 
-            Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
-        # wilson.update_database(lovebird)   
-        # puts "Please add details for the Cock Bird"
-        # male_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface)) 
-        # spinner = TTY::Spinner.new("[:spinner] ...Adding")
-        # spinner.auto_spin
-        # sleep(1)
-        # spinner.success('(successful)')
+        Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
         
-        # male_colour1 = prompt.ask("Please type Colour", convert: :string)
-        # spinner.auto_spin
-        # sleep(1)
-        # spinner.success('(successful)')
-        
-        # male_colour2 = prompt.ask("Please type Secondary Colour", convert: :string) 
-        # spinner.auto_spin
-        # sleep(1)
-        # spinner.success('(successful)')
-
-        # puts "Please add details for the Hen Bird"
-
-        # female_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface)) 
-        # spinner = TTY::Spinner.new("[:spinner] ...Adding")
-        # spinner.auto_spin
-        # sleep(1)
-        # spinner.success('(successful)')
-        
-        # female_colour1 = prompt.ask("Please type Colour", convert: :string)
-        # spinner.auto_spin
-        # sleep(1)
-        # spinner.success('(successful)')
-        
-        # female_colour2 = prompt.ask("Please type Secondary Colour", convert: :string) 
-        # spinner.auto_spin
-        # sleep(1)
-        # spinner.success('(successful)')
-        
-        # wilson.gen_calculator(male_colour1, male_colour2, male_type, female_colour1, female_colour2,
-        # female_type
-        # )
         
         when "Bird Tips and Reminder"
         when "List All Stocks"
