@@ -1,25 +1,7 @@
 ---
 - !ruby/object:Bird
-  id_tag: '005'
-  type: Whitefaced
-  mutation: Green
-  sex: Cock
-  age: 1
-- !ruby/object:Bird
   id_tag: '001'
   type: Whitefaced
   mutation: Green
-  sex: Hen
-  age: 4
-- !ruby/object:Bird
-  id_tag: '009'
-  type: Peachfaced
-  mutation: Opaline
-  sex: Hen
-  age: 4
-- !ruby/object:Bird
-  id_tag: '23'
-  type: Peachfaced
-  mutation: Opaline
-  sex: Hen
-  age: 4
+  sex: Cock
+  age: '1'
