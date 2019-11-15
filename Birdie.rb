@@ -8,6 +8,7 @@ require "./Breeder"
 require "tty-table"
 require "launchy"
 require 'yaml'
+
 # initialize some gems
 prompt = TTY::Prompt.new
 pastel = Pastel.new
@@ -28,7 +29,6 @@ end
 
 wilson = Breeder.new
 not_quiting = false
-
 until not_quiting do
     
     puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
@@ -77,13 +77,17 @@ until not_quiting do
                 case reminder_input
                     when "Write Reminder"
                         puts "...notes here"
-                        new_reminder = gets.chomp
+                        new_reminder = gets.chomp.to_s
                         File.open("reminder.txt", "a") { |file| file.write(new_reminder + "%#&") }
                     when "Open Reminder"
                         reminder = File.read("reminder.txt")
                         reminders = reminder.split("%#&")
                         reminders.each do |element|
-                        puts element
+                            box = TTY::Box.frame(width: 30, height: 10, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
+                                bg: :blue, border: {fg: :bright_yellow, bg: :blue}}) do
+                                "#{element}"
+                              end   
+                              print box
                     end
                 prompt.keypress("Press space or enter to continue", keys: [:space, :return])
                 system("clear")

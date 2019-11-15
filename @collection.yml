@@ -2,6 +2,6 @@
 - !ruby/object:Bird
   id_tag: '001'
   type: Whitefaced
-  mutation: Green
+  mutation: White
   sex: Cock
   age: '1'
