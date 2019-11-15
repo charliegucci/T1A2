@@ -1,4 +1,5 @@
 #gems gallore!!!
+load "progress.rb"
 require "tty-prompt" 
 require "tty-font"
 require "pastel"
@@ -8,8 +9,8 @@ require "./Breeder"
 require "tty-table"
 require "launchy"
 require 'yaml'
-
 # initialize some gems
+system("clear")
 prompt = TTY::Prompt.new
 pastel = Pastel.new
 font = TTY::Font.new(:doom)
@@ -76,18 +77,20 @@ until not_quiting do
             end
                 case reminder_input
                     when "Write Reminder"
-                        puts "...notes here"
+                        box = TTY::Box.info("Please Write your Notes here ")
+                        print box
                         new_reminder = gets.chomp.to_s
                         File.open("reminder.txt", "a") { |file| file.write(new_reminder + "%#&") }
                     when "Open Reminder"
                         reminder = File.read("reminder.txt")
                         reminders = reminder.split("%#&")
                         reminders.each do |element|
-                            box = TTY::Box.frame(width: 30, height: 10, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
+                            box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: 'NOTES',
+                                 bottom_right: 'wilson® v1.0'}, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
                                 bg: :blue, border: {fg: :bright_yellow, bg: :blue}}) do
                                 "#{element}"
                               end   
-                              print box
+                              print box 
                     end
                 prompt.keypress("Press space or enter to continue", keys: [:space, :return])
                 system("clear")
