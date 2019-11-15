@@ -1,0 +1,25 @@
+---
+- !ruby/object:Bird
+  id_tag: '002'
+  type: Whitefaced
+  mutation: Green
+  sex: Hen
+  age: 2
+- !ruby/object:Bird
+  id_tag: '003'
+  type: Whitefaced
+  mutation: Pink
+  sex: Hen
+  age: 3
+- !ruby/object:Bird
+  id_tag: '005'
+  type: Peachfaced
+  mutation: Hello
+  sex: Hen
+  age: 4
+- !ruby/object:Bird
+  id_tag: '005'
+  type: Orangeface
+  mutation: yyutrrtyu
+  sex: Hen
+  age: 7

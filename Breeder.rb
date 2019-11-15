@@ -1,32 +1,31 @@
-
+require "tty-table"
 
 class Breeder
     
     
-    attr_reader :collection
+    attr_accessor :collection
 
     def initialize
         @collection = []
+        
     end
     
     def update_database(bird)
-        spinner = TTY::Spinner.new("[:spinner] Adding...")
-        spinner.auto_spin
         @collection.push(bird)
-        @collection.each do |element|
-        sleep(2)
-        spinner.stop('Done!')
-        end
-    end
+        File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
+    end    
     
-    def list_stocks
-        
+        def list_stocks
+        @collection = YAML.load(File.read("@collection.yml"))
         @collection.each do |element|
-            puts "#{element.type} #{element.mutation} Tag is #{element.id_tag} #{element.sex} Bird" 
+            puts "Added #{element.type} #{element.mutation} Tag is #{element.id_tag} #{element.sex} Bird" 
+            table = TTY::Table.new ['ID TAG','TYPE', 'MUTATION', 'SEX', 'AGE(Months)'], [[element.id_tag, element.type, element.mutation, element.sex, element.age]]
             
-            
-            
-        end
+            puts table.render(:unicode, alignments: [:center, :center, :center, :center, :center])
+        
+    
+            end
+
         
     end
     
