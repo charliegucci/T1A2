@@ -12,6 +12,7 @@ class Breeder
     def update_database(bird)
         @collection.push(bird)
         File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
+        
     end    
     
      def list_stocks
@@ -19,12 +20,12 @@ class Breeder
             @collection = YAML.load(File.read("@collection.yml"))
             @collection.each do |element|
                 
-            id_tag = p.decorate("ID TAG",:black, :on_green)
-            type = p.decorate("TYPE",:black, :on_green)
-            mutation = p.decorate("MUTATION",:black, :on_green)
-            sex = p.decorate("SEX",:black, :on_green)
-            age = p.decorate("AGE (mos)",:black, :on_green)
-            table = TTY::Table.new ["#{id_tag}","#{type}","#{mutation}","#{sex}","#{age}"], [[element.id_tag, element.type, element.mutation, element.sex, element.age]]
+                id_tag = p.decorate("ID TAG",:black, :on_green)
+                type = p.decorate("TYPE",:black, :on_green)
+                mutation = p.decorate("MUTATION",:black, :on_green)
+                sex = p.decorate("SEX",:black, :on_green)
+                age = p.decorate("AGE (mos)",:black, :on_green)
+                table = TTY::Table.new ["#{id_tag}","#{type}","#{mutation}","#{sex}","#{age}"], [[element.id_tag, element.type, element.mutation, element.sex, element.age]]
                 puts table.render(:unicode, alignments: [:center, :center, :center, :center, :center])
             
             end
