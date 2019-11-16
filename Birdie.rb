@@ -37,7 +37,7 @@ until not_quiting do
     user_input = prompt.select("Please Select from the following?") do |menu|
         menu.choice "Bird Database"
         menu.choice "Bird Genetic Calculator"
-        menu.choice "Bird Tips and Reminder"
+        menu.choice "Reminder"
         menu.choice "List All Stocks"
         menu.choice "Exit"
     end     
@@ -69,12 +69,13 @@ until not_quiting do
             Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
                 system("clear")
         
-        when "Bird Tips and Reminder"
+        when "Reminder"
                 reminder_input = prompt.select("Please Select from the following?") do |menu|
                 menu.choice "Write Reminder"
                 menu.choice "Open Reminder"  
+                menu.choice "Delete Reminder"
                 menu.choice "Back to Main Menu"
-            end
+            end   
                 case reminder_input
                     when "Write Reminder"
                         box = TTY::Box.info("Please Write your Notes here ")
@@ -85,16 +86,35 @@ until not_quiting do
                         reminder = File.read("reminder.txt")
                         reminders = reminder.split("%#&")
                         reminders.each do |element|
-                            box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: 'NOTES',
+                            box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: "NOTES",
                                  bottom_right: 'wilson® v1.0'}, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
                                 bg: :blue, border: {fg: :bright_yellow, bg: :blue}}) do
                                 "#{element}"
                               end   
                               print box 
+                            end
+                    when "Delete Reminder"
+                        reminder = File.read("reminder.txt")
+                        reminders = reminder.split("%#&")
+                        reminders.each do |element|
+                            box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: "NOTES",
+                                 bottom_right: 'wilson® v1.0'}, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
+                                bg: :blue, border: {fg: :bright_yellow, bg: :blue}}) do
+                                "#{element}"
+                              end   
+                              print box 
+                        end
+                        puts " Which note you want to delete? (eg. 1...10)"
+                        user_delete_input = gets.chomp.to_i
+                        reminders.slice!(user_delete_input - 1)
+                        
+                        File.open("reminder.txt", "w") { |file| file.write(reminders.join("%#&")) }
+                        puts "Deleted"
+                    
                     end
-                prompt.keypress("Press space or enter to continue", keys: [:space, :return])
-                system("clear")
-        end
+                    prompt.keypress("Press space or enter to continue", keys: [:space, :return])
+                    system("clear")
+                
             
         when "List All Stocks"
         spinner = TTY::Spinner.new("[:spinner] Checking the stocks. Please Wait ...", format: :bouncing_ball)

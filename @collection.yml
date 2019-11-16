@@ -1,7 +1,13 @@
 ---
 - !ruby/object:Bird
-  id_tag: '001'
-  type: Whitefaced
-  mutation: Green
+  id_tag: '002'
+  type: Peachfaced
+  mutation: Red
   sex: Hen
-  age: '1'
+  age: '2'
+- !ruby/object:Bird
+  id_tag: '004'
+  type: Orangeface
+  mutation: Red
+  sex: Hen
+  age: '3'
