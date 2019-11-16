@@ -1,6 +1,6 @@
 class Reminder
         
-    def opening_reminder
+    def opening_reminder()
         @reminder = File.read("reminder.txt")
         @new_reminder = @reminder.split("%#&")
         @new_reminder.each do |element|
@@ -12,7 +12,7 @@ class Reminder
             end
         end
 
-    def writing_reminder
+    def writing_reminder()
         prompt = TTY::Prompt.new
         box = TTY::Box.info("Reminder Section")
                         print box
@@ -21,7 +21,7 @@ class Reminder
 
     end
 
-    def deleting_reminder
+    def deleting_reminder()
         self.opening_reminder
         puts " Which note you want to delete? (eg. 1...10)"
                         user_delete_input = gets.chomp.to_i

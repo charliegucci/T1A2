@@ -36,7 +36,7 @@ until not_quiting do
     
     puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
             # Uses TTY-Prompt Gem for the Menus
-    options = "Bird Database", "Bird Genetic Calculator", "Reminder", "List All Stocks", "Exit"
+    options = "Bird Database", "Bird Colour Calculator", "Reminder", "List All Stocks", "Exit"
     user_input = prompt.select("Please Select from the following?", options, filter: true) 
     
     case user_input
@@ -61,8 +61,8 @@ until not_quiting do
             # tty prompt gem for hitting spacebar or enter to continue
             prompt.keypress("Press space or enter to continue", keys: [:space, :return])
                 system("clear") 
-        
-        when "Bird Genetic Calculator"
+            # gem links website
+        when "Bird Colour Calculator"
             Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
                 system("clear")
         
@@ -83,18 +83,14 @@ until not_quiting do
                 
             
         when "List All Stocks"
-        spinner = TTY::Spinner.new("[:spinner] Checking the stocks. Please Wait ...", format: :bouncing_ball)
-        spinner.auto_spin 
-        sleep(1) 
-        spinner.stop('Done!')
-        
-        wilson.list_stocks
+            show_spinner2()
+            wilson.list_stocks
         
         prompt.keypress("Press space or enter to continue", keys: [:space, :return])
         system("clear")
         
         when "Exit"
-            user_input = prompt.yes?('Are you sure you want to Quit?')
+            user_input = prompt.yes?('Are you sure you want to Quit?', required: true)
             not_quiting = true if user_input
         system("clear")
           

@@ -5,3 +5,11 @@ def show_spinner()
             sleep(1)
                 spinner.success('(successful)')
 end
+
+def show_spinner2()
+    spinner = TTY::Spinner.new("[:spinner] Checking the stocks. Please Wait ...", format: :bouncing_ball)
+        spinner.auto_spin 
+        sleep(1) 
+        spinner.stop('Done!')
+
+end
