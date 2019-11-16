@@ -1,3 +1,4 @@
+# gem for spinning animation
 def show_spinner()
     spinner = TTY::Spinner.new("[:spinner] ...Adding")
         spinner.auto_spin

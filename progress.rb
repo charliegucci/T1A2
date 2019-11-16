@@ -1,3 +1,5 @@
+# gem for progressbar animation
+
 require 'tty-progressbar'
 
 bar = TTY::ProgressBar.new "Logging in to CoderAcademy... [:bar] :rate/s :mean_rate/s" do |conf|
