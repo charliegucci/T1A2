@@ -1,5 +1,5 @@
 #gems gallore!!!
-# load "progress.rb"
+load "progress.rb"
 require "./spinner"
 require "tty-prompt" 
 require "tty-font"
@@ -72,41 +72,11 @@ until not_quiting do
                 
                 case reminder_input
                     when "Write Reminder"
-                        # box = TTY::Box.info("Reminder Section")
-                        # print box
-                        # new_reminder = prompt.ask("Please type your notes here...", required: true)
-                        # File.open("reminder.txt", "a") { |file| file.write(new_reminder + "%#&") }
                         notes.writing_reminder
                     when "Open Reminder"
-                        reminder = File.read("reminder.txt")
-                        reminders = reminder.split("%#&")
-                        reminders.each do |element|
-                            box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: "NOTES",
-                                 bottom_right: 'wilson® v1.0'}, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
-                                bg: :blue, border: {fg: :bright_yellow, bg: :blue}}) do
-                                "#{element}"
-                              end   
-                              print box 
-                            end
+                        notes.opening_reminder
                     when "Delete Reminder"
-                        reminder = File.read("reminder.txt")
-                        reminders = reminder.split("%#&")
-                        reminders.each do |element|
-                            box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: "NOTES",
-                                 bottom_right: 'wilson® v1.0'}, style: {fg: :bright_yellow, # TTY-BOX for the Reminder section
-                                bg: :blue, border: {fg: :bright_yellow, bg: :blue}}) do
-                                "#{element}"
-                              end   
-                              print box 
-                        end
-                        puts " Which note you want to delete? (eg. 1...10)"
-                        user_delete_input = gets.chomp.to_i
-                        reminders.slice!(user_delete_input - 1)
-                        
-                        File.open("reminder.txt", "w") { |file| file.write(reminders.join("%#&")) }
-                        box = TTY::Box.warn("Deleted Selected Notes")
-                        print box
-                    
+                        notes.deleting_reminder
                     end
                     prompt.keypress("Are you sure you want to continue? Press space or enter ", keys: [:space, :return])
                     system("clear")

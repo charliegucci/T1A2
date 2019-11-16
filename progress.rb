@@ -5,7 +5,7 @@ bar = TTY::ProgressBar.new "Logging in to CoderAcademy... [:bar] :rate/s :mean_r
     conf.interval = 1
   end
   30.times do
-    sleep(0.5)
+    sleep(0.1)
     bar.advance(Random.rand(10))
   end
 
