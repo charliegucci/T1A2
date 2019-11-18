@@ -1,6 +1,6 @@
 #gems gallore!!!
 load "progress.rb"
-require "./spinner"
+require "./gems"
 require "tty-prompt" 
 require "tty-font"
 require "pastel"
@@ -16,7 +16,7 @@ system("clear")
 prompt = TTY::Prompt.new
 pastel = Pastel.new
 font = TTY::Font.new(:doom)
-spinner = TTY::Spinner.new("[:spinner] ...Adding")
+# spinner = TTY::Spinner.new("[:spinner] ...Adding")
 
 class Bird 
         attr_accessor :id_tag, :mutation, :sex, :age, :type
@@ -48,11 +48,13 @@ until not_quiting do
             show_spinner
             bird_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
             show_spinner
-            bird_mutation = prompt.ask("Please type Mutation", required: true) 
+            options = "Green", "Green/Violet", "Blue", "Violet", "Cinnamon", "Lutino",
+            "Cremino", "Opaline", "Slate Aqua", "Turquiose", "Pallid", "PaleHeaded", "Fallow", "Pied", "Edge", "Dilute"
+            bird_mutation = prompt.select("Please Select from the following?", options, filter: true)
             show_spinner
             bird_sex = prompt.select("Please Select Sex?", %w(Cock Hen)) 
             show_spinner
-            bird_age = prompt.ask("How old?  (months)", required: true) 
+            bird_age = prompt.select("Please Select Age (in months)?", %w(1 2 3 4 5 6 6 7 8 9 10 11 12)) 
             show_spinner
         
             lovebird = Bird.new(bird_id_tag, bird_type, bird_mutation,bird_sex, bird_age)
@@ -63,7 +65,7 @@ until not_quiting do
             prompt.keypress("Press space or enter to continue", keys: [:space, :return])
                 system("clear") 
         
-        when "Bird Colour Calculator"
+        when "Bird Colour Calculator" # Link to a website 
             Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
                 system("clear")
         
@@ -81,9 +83,7 @@ until not_quiting do
                             print box
                         else
                             notes.opening_reminder
-
                         end
-                        
                         pause   
                         
                     when "Delete Reminder"
@@ -95,15 +95,11 @@ until not_quiting do
                             else
                                 notes.deleting_reminder
                             end
-                        
-                        
-                    end
+                        end
                     
-                
-            
         when "List of Stocks"
         show_spinner2
-        list_option = "Display Stocks", "Delete Stocks"
+        list_option = "Display Stocks", "Delete Stocks", "Back to Main Menu"
         list_input = prompt.select("Please Select from the following?", list_option, filter: true) 
                 
                 case list_input
@@ -116,7 +112,6 @@ until not_quiting do
                             wilson.list_stocks
 
                         end
-                        
                         pause
                     when "Delete Stocks"
                         wilson.collection = YAML.load(File.read("@collection.yml"))    
@@ -127,9 +122,8 @@ until not_quiting do
                             else
                                 wilson.delete_stocks
                             end
+                    else        
                 end
-        
-        
         
         when "Exit"
             user_input = prompt.yes?('Are you sure you want to Quit?')
