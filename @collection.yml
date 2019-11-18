@@ -1,19 +1,7 @@
 ---
 - !ruby/object:Bird
-  id_tag: '0045'
-  type: Peachfaced
-  mutation: Pink
-  sex: Cock
-  age: '21'
-- !ruby/object:Bird
-  id_tag: "\e\e\e\e\e\e\e\e"
+  id_tag: '23'
   type: Whitefaced
-  mutation: "\e"
-  sex: Hen
-  age: '2'
-- !ruby/object:Bird
-  id_tag: "\e"
-  type: Orangeface
-  mutation: "\e\e\e\e\e\e"
+  mutation: qw
   sex: Cock
-  age: "\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e\e"
+  age: '1'

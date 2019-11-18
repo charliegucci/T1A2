@@ -6,7 +6,7 @@ require "tty-font"
 require "pastel"
 require "tty-box"
 require "tty-spinner"
-require "./breeder"
+require "./Breeder"
 require "tty-table"
 require "launchy"
 require 'yaml'
@@ -36,23 +36,24 @@ until not_quiting do
     
     puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
             # Uses TTY-Prompt Gem for the Menus
-    options = "Bird Database", "Bird Colour Calculator", "Reminder", "List All Stocks", "Exit"
+    options = "Add Bird to Database", "Bird Colour Calculator", "Reminder", "List of Stocks", "Exit"
     user_input = prompt.select("Please Select from the following?", options, filter: true) 
+         
     
     case user_input
         
-        when "Bird Database"
+        when "Add Bird to Database"
         
             bird_id_tag = prompt.ask("Enter Id tag", required: true) 
-            show_spinner()
+            show_spinner
             bird_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
-            show_spinner()
+            show_spinner
             bird_mutation = prompt.ask("Please type Mutation", required: true) 
-            show_spinner()
+            show_spinner
             bird_sex = prompt.select("Please Select Sex?", %w(Cock Hen)) 
-            show_spinner()
+            show_spinner
             bird_age = prompt.ask("How old?  (months)", required: true) 
-            show_spinner()
+            show_spinner
         
             lovebird = Bird.new(bird_id_tag, bird_type, bird_mutation,bird_sex, bird_age)
         
@@ -61,36 +62,77 @@ until not_quiting do
             # tty prompt gem for hitting spacebar or enter to continue
             prompt.keypress("Press space or enter to continue", keys: [:space, :return])
                 system("clear") 
-            # gem links website
+        
         when "Bird Colour Calculator"
             Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
                 system("clear")
         
         when "Reminder"
-                reminder_option = "Write Reminder", "Open Reminder", "Delete Reminder", "Back to Main Menu"
-                reminder_input = prompt.select("Please Select from the following?", reminder_option, filter: true) 
-                
+            reminder_option = "Write Reminder", "Open Reminder", "Delete Reminder", "Back to Main Menu"
+            reminder_input = prompt.select("Please Select from the following?", reminder_option) 
+               
                 case reminder_input
                     when "Write Reminder"
                         notes.writing_reminder
                     when "Open Reminder"
-                        notes.opening_reminder
+                    notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))
+                        box = TTY::Box.error("You don't have any saved Data")
+                        if notes.list_reminder.all? &:nil?
+                            print box
+                        else
+                            notes.opening_reminder
+
+                        end
+                        
+                        pause   
+                        
                     when "Delete Reminder"
-                        notes.deleting_reminder
+                        notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    
+                        box = TTY::Box.error("You don't have any saved Data")
+                        if notes.list_reminder.all? &:nil? 
+                            print box
+                            pause
+                            else
+                                notes.deleting_reminder
+                            end
+                        
+                        
                     end
-                    prompt.keypress("Are you sure you want to continue? Press space or enter ", keys: [:space, :return])
-                    system("clear")
+                    
                 
             
-        when "List All Stocks"
-            show_spinner2()
-            wilson.list_stocks
+        when "List of Stocks"
+        show_spinner2
+        list_option = "Display Stocks", "Delete Stocks"
+        list_input = prompt.select("Please Select from the following?", list_option, filter: true) 
+                
+                case list_input
+                    when "Display Stocks"
+                        wilson.collection = YAML.load(File.read("@collection.yml"))
+                        box = TTY::Box.error("You don't have any saved Data")
+                        if wilson.collection.all? &:nil?
+                            print box
+                        else
+                            wilson.list_stocks
+
+                        end
+                        
+                        pause
+                    when "Delete Stocks"
+                        wilson.collection = YAML.load(File.read("@collection.yml"))    
+                        box = TTY::Box.error("You don't have any saved Data")
+                        if wilson.collection.all? &:nil? 
+                            print box
+                            pause
+                            else
+                                wilson.delete_stocks
+                            end
+                end
         
-        prompt.keypress("Press space or enter to continue", keys: [:space, :return])
-        system("clear")
+        
         
         when "Exit"
-            user_input = prompt.yes?('Are you sure you want to Quit?', required: true)
+            user_input = prompt.yes?('Are you sure you want to Quit?')
             not_quiting = true if user_input
         system("clear")
           
