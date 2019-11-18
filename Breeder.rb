@@ -14,7 +14,7 @@ class Breeder
         File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
     end    
     
-     def list_stocks
+    def list_stocks
             p = Pastel.new
             @collection = YAML.load(File.read("@collection.yml"))
             @collection.each do |element|
@@ -28,14 +28,15 @@ class Breeder
                 puts table.render(:unicode, alignments: [:center, :center, :center, :center, :center])
             
             end
-        end
+    end
      
-     def delete_stocks
+    def delete_stocks
         prompt = TTY::Prompt.new
         self.list_stocks
-        puts " Which note you want to delete? (eg. 1,2,3..starting from the top)"
+        prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top")
         user_delete_input = gets.chomp.to_i
-        @collection.slice!(user_delete_input - 1)
+        if user_delete_input.between?(1, @collection.length)
+            @collection.slice!(user_delete_input.to_i - 1)
         box = TTY::Box.warn("Are you sure you want to delete?")
                     print box
                     user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
@@ -48,5 +49,10 @@ class Breeder
                         else
                             list_stocks
                         end
-     end
+        else 
+            box = TTY::Box.error("Invalid Choice")
+            print box
+            pause 
+        end
+    end
 end

@@ -30,10 +30,11 @@ class Reminder
    def deleting_reminder()
        prompt = TTY::Prompt.new
        self.opening_reminder
-       puts " Which note you want to delete? (eg. 1,2,3..starting from the top)"
-           reminder_delete_input = gets.chomp.to_i
-           @list_reminder.slice!(reminder_delete_input - 1)
-           box = TTY::Box.warn("Are you sure you want to delete?")
+       prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top")
+       reminder_delete_input = gets.chomp.to_i
+       if reminder_delete_input.between?(1, @list_reminder.length)
+            @list_reminder.slice!(reminder_delete_input.to_i - 1)
+            box = TTY::Box.warn("Are you sure you want to delete?")
                     print box
                     user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
                         if user_input == "y"
@@ -44,55 +45,10 @@ class Reminder
                         else
                             opening_reminder
                         end
-    
-    
-    
-    
-    
-           #    #         if reminder_delete_input.kind_of? Integer && @list_reminder[reminder_delete_input - 1].nil?
-    #                        box = TTY::Box.warn("Are you sure you want to delete?")
-    #                        print box
-    #                        reminder_user_input = prompt.ask("Press Y / N then hit Enter", required: true)
-    #                            if reminder_user_input
-    #                                box = TTY::Box.success("Notes Deleted")
-    #                                print box
-    #                                pause
-    #                            end       
-                   # else
-                   #     box = TTY::Box.error("Invalid Choice1")
-                   #     print box
-                   #     pause
-
-                   
-                   
-                   
-                   
-                   
-               #     puts reminder_delete_input
-               #     p @list_reminder[reminder_delete_input - 1].nil?
-               #                 p reminder_delete_input.class
-               
-               # elsif @list_reminder[reminder_delete_input - 1].nil && reminder_delete_input.is_a? Integer
-               #                 box = TTY::Box.error("Invalid Choice2")
-               #                 p @list_reminder[reminder_delete_input - 1].nil?
-               #                 p reminder_delete_input.class
-               #                 print box
-               #                 pause
-               
-               # if  reminder_delete_input.is_a? Integer && @list_reminder[reminder_delete_input - 1] == nil
-               #     box = TTY::Box.error("Invalid Choice3")
-               #     p @list_reminder[reminder_delete_input - 1].nil?
-               #                 p reminder_delete_input.class
-               #     print box
-               #     pause
-                           
-               # else            
-                           
-               # end
-               # end
-               # end
-                
-           
-                
+        else 
+            box = TTY::Box.error("Invalid Choice")
+            print box
+            pause 
+            end               
    end
 end
