@@ -1,3 +1,4 @@
+
 class Reminder
     attr_accessor :list_reminder   
    
@@ -5,14 +6,15 @@ class Reminder
        @list_reminder =[]
    end
    def opening_reminder()
-        @list_reminder = YAML.load(File.read("@list_reminder.yml"))
+       @list_reminder = YAML.load(File.read("@list_reminder.yml"))
        @list_reminder.each do |element|
        box = TTY::Box.frame(width: 30, height: 10, align: :center, padding: 3, title: {top_left: "NOTES",
            bottom_right: 'wilson® v1.0'}, style: {fg: :bright_yellow, bg: :blue, border: {fg: :bright_yellow,
            bg: :blue}}) do "#{element}"
            end   
            print box 
-       end
+           
+        end
    end
    
    def writing_reminder()
@@ -30,7 +32,7 @@ class Reminder
    def deleting_reminder()
        prompt = TTY::Prompt.new
        self.opening_reminder
-       prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top")
+       prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top.")
        reminder_delete_input = gets.chomp.to_i
        if reminder_delete_input.between?(1, @list_reminder.length)
             @list_reminder.slice!(reminder_delete_input.to_i - 1)
@@ -42,13 +44,22 @@ class Reminder
                         box = TTY::Box.success("Notes Deleted")
                             print box
                             pause
+                        elsif user_input == "n"
+                        
                         else
-                            opening_reminder
+                            prompt.warn("Invalid Selection")
+                            pause        
                         end
+        
+        
         else 
             box = TTY::Box.error("Invalid Choice")
             print box
             pause 
             end               
    end
+
+   
+
 end
+

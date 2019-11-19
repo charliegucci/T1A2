@@ -2,7 +2,7 @@
 
 require 'tty-progressbar'
 
-bar = TTY::ProgressBar.new "Logging in to CoderAcademy... [:bar] :rate/s :mean_rate/s" do |conf|
+bar = TTY::ProgressBar.new "Downloading... [:bar] :rate/s :mean_rate/s" do |conf|
     conf.total = 100
     conf.interval = 1
   end

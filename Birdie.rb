@@ -1,12 +1,12 @@
 #gems gallore!!!
 load "progress.rb"
-require "./gems"
+require "./module"
 require "tty-prompt" 
 require "tty-font"
 require "pastel"
 require "tty-box"
 require "tty-spinner"
-require "./Breeder"
+require "./breeder"
 require "tty-table"
 require "launchy"
 require 'yaml'
@@ -17,6 +17,9 @@ prompt = TTY::Prompt.new
 pastel = Pastel.new
 font = TTY::Font.new(:doom)
 # spinner = TTY::Spinner.new("[:spinner] ...Adding")
+
+
+
 
 class Bird 
         attr_accessor :id_tag, :mutation, :sex, :age, :type
@@ -29,6 +32,7 @@ class Bird
             @age = age
         end
 end
+
 notes = Reminder.new
 wilson = Breeder.new
 not_quiting = false
@@ -37,7 +41,7 @@ until not_quiting do
     puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
             # Uses TTY-Prompt Gem for the Menus
     options = "Add Bird to Database", "Bird Colour Calculator", "Reminder", "List of Stocks", "Exit"
-    user_input = prompt.select("Please Select from the following?", options, filter: true) 
+    user_input = prompt.select("Please Enter Information Below:", options, filter: true) 
          
     
     case user_input
@@ -61,11 +65,10 @@ until not_quiting do
         
             wilson.update_database(lovebird) # Pushes the collected data to an array at the Breeders Class
         
-            # tty prompt gem for hitting spacebar or enter to continue
-            prompt.keypress("Press space or enter to continue", keys: [:space, :return])
-                system("clear") 
+            pause
         
         when "Bird Colour Calculator" # Link to a website 
+            load "progress.rb"
             Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
                 system("clear")
         
@@ -77,14 +80,16 @@ until not_quiting do
                     when "Write Reminder"
                         notes.writing_reminder
                     when "Open Reminder"
-                    notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))
+                        notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    
                         box = TTY::Box.error("You don't have any saved Data")
-                        if notes.list_reminder.all? &:nil?
-                            print box
+                        if notes.list_reminder.all? &:nil? 
+                        print box    
+                            pause
                         else
-                            notes.opening_reminder
+                           notes.opening_reminder
+                        pause
                         end
-                        pause   
+                               
                         
                     when "Delete Reminder"
                         notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    

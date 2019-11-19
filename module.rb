@@ -1,4 +1,4 @@
-
+# gem for spinning animation
 def show_spinner()
     spinner = TTY::Spinner.new("[:spinner] ...Adding")
         spinner.auto_spin
@@ -21,3 +21,7 @@ def pause()
 
 end
 
+# def show_error()
+#     notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))
+#     box = TTY::Box.error("You don't have any saved Data")
+# end

@@ -33,26 +33,26 @@ class Breeder
     def delete_stocks
         prompt = TTY::Prompt.new
         self.list_stocks
-        prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top")
+        prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top."  )
         user_delete_input = gets.chomp.to_i
         if user_delete_input.between?(1, @collection.length)
             @collection.slice!(user_delete_input.to_i - 1)
-        box = TTY::Box.warn("Are you sure you want to delete?")
+            box = TTY::Box.warn("Are you sure you want to delete?")
                     print box
                     user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
-                        if user_input == "y"
-                            
+                        if user_input == "y" 
                             File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
                             box = TTY::Box.success("Notes Deleted")
                             print box
                             pause
                         else
-                            list_stocks
+                            delete_stocks
                         end
-        else 
+            else 
             box = TTY::Box.error("Invalid Choice")
             print box
             pause 
+        
         end
     end
 end
