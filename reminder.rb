@@ -19,12 +19,12 @@ class Reminder
    
    def writing_reminder()
        prompt = TTY::Prompt.new
-       box = TTY::Box.info("Reminder Section")
+       box = TTY::Box.info("Journal Section")
        print box
        @new_reminder = prompt.ask("Please type your notes here...", required: true)
        @list_reminder.push(@new_reminder)
        File.open("@list_reminder.yml", "w") { |file| file.write(@list_reminder.to_yaml) }
-       box = TTY::Box.success("Notes Added")
+       box = TTY::Box.success("Journal Added")
        print box
        pause
    end
@@ -41,7 +41,7 @@ class Reminder
                     user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
                         if user_input == "y"
                         File.open("@list_reminder.yml", "w") { |file| file.write(@list_reminder.to_yaml) }
-                        box = TTY::Box.success("Notes Deleted")
+                        box = TTY::Box.success("Journal Deleted")
                             print box
                             pause
                         elsif user_input == "n"

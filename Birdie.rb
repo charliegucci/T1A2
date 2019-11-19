@@ -40,7 +40,7 @@ until not_quiting do
     
     puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
             # Uses TTY-Prompt Gem for the Menus
-    options = "Add Bird to Database", "Bird Colour Calculator", "Reminder", "List of Stocks", "Exit"
+    options = "Add Bird to Database", "Bird Colour Calculator", "Bird Journal", "List of Stocks", "Exit"
     user_input = prompt.select("Please Enter Information Below:", options, filter: true) 
          
     
@@ -72,16 +72,16 @@ until not_quiting do
             Launchy.open("http://www.gencalc.com/gen/eng_genc.php?sp=0LBpeach")
                 system("clear")
         
-        when "Reminder"
-            reminder_option = "Write Reminder", "Open Reminder", "Delete Reminder", "Back to Main Menu"
+        when "Bird Journal"
+            reminder_option = "Write Journal", "Open Journal", "Delete Journal", "Back to Main Menu"
             reminder_input = prompt.select("Please Select from the following?", reminder_option) 
                
                 case reminder_input
-                    when "Write Reminder"
+                    when "Write Journal"
                         notes.writing_reminder
-                    when "Open Reminder"
+                    when "Open Journal"
                         notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    
-                        box = TTY::Box.error("You don't have any saved Data")
+                        box = TTY::Box.error("You don't have any saved Journal")
                         if notes.list_reminder.all? &:nil? 
                         print box    
                             pause
@@ -91,9 +91,9 @@ until not_quiting do
                         end
                                
                         
-                    when "Delete Reminder"
+                    when "Delete Journal"
                         notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    
-                        box = TTY::Box.error("You don't have any saved Data")
+                        box = TTY::Box.error("You don't have any saved Journal")
                         if notes.list_reminder.all? &:nil? 
                             print box
                             pause
