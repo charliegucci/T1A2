@@ -2,7 +2,8 @@
 ---
 * Copy the Application folder to your computer
 * Open the Terminal Application and go to the directory where you save the Application<br>
-* Run birdie.rb file
+* Run ./run_birdie.sh
+* It will install all the gem and dependencies and will install the birdie.rb file as well
 * To **add Bird in the database**, choose **"Add Bird to Database"** in the Menu.
 * Fill in the ID tag number and press enter
 * Select the type by using arrow keys and press enter

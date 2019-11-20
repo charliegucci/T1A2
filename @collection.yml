@@ -2,18 +2,6 @@
 - !ruby/object:Bird
   id_tag: '123'
   type: Whitefaced
-  mutation: Green
-  sex: Cock
-  age: '1'
-- !ruby/object:Bird
-  id_tag: '26565'
-  type: Whitefaced
-  mutation: Green
-  sex: Cock
-  age: '1'
-- !ruby/object:Bird
-  id_tag: '1'
-  type: Whitefaced
-  mutation: Green
+  mutation: Green/Violet
   sex: Cock
   age: '1'

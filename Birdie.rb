@@ -37,17 +37,19 @@ notes = Reminder.new
 wilson = Breeder.new
 not_quiting = false
 until not_quiting do
-    
+  begin  
     puts pastel.red(font.write("BIRDIE")) # TTY-FOnt for the Heading
             # Uses TTY-Prompt Gem for the Menus
     options = "Add Bird to Database", "Bird Colour Calculator", "Bird Journal", "List of Stocks", "Exit"
     user_input = prompt.select("Please Enter Information Below:", options, filter: true) 
          
-    
+  rescue
+    puts "ESC key not valid"
+  end 
     case user_input
         
         when "Add Bird to Database"
-        
+        begin
             bird_id_tag = prompt.ask("Enter Id tag", required: true) 
             show_spinner
             bird_type = prompt.select("Please Select type?", %w(Whitefaced Peachfaced Orangeface))
@@ -60,6 +62,9 @@ until not_quiting do
             show_spinner
             bird_age = prompt.select("Please Select Age (in months)?", %w(1 2 3 4 5 6 6 7 8 9 10 11 12)) 
             show_spinner
+        rescue
+            puts "ESC key not valid"
+        end
         
             lovebird = Bird.new(bird_id_tag, bird_type, bird_mutation,bird_sex, bird_age)
         
@@ -73,11 +78,15 @@ until not_quiting do
                 system("clear")
         
         when "Bird Journal"
+            begin
             reminder_option = "Write Journal", "Open Journal", "Delete Journal", "Back to Main Menu"
             reminder_input = prompt.select("Please Select from the following?", reminder_option) 
-               
+            rescue 
+                puts "ESC key not valid"
+        end        
                 case reminder_input
-                    when "Write Journal"
+                   
+                when "Write Journal"
                         notes.writing_reminder
                     when "Open Journal"
                         notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    
@@ -89,7 +98,7 @@ until not_quiting do
                            notes.opening_reminder
                         pause
                         end
-                               
+                                   
                         
                     when "Delete Journal"
                         notes.list_reminder = YAML.load(File.read("@list_reminder.yml"))    
@@ -100,13 +109,13 @@ until not_quiting do
                             else
                                 notes.deleting_reminder
                             end
-                        end
+                end
                     
         when "List of Stocks"
         show_spinner2
         list_option = "Display Stocks", "Delete Stocks", "Back to Main Menu"
         list_input = prompt.select("Please Select from the following?", list_option, filter: true) 
-                
+      
                 case list_input
                     when "Display Stocks"
                         wilson.collection = YAML.load(File.read("@collection.yml"))
@@ -129,12 +138,13 @@ until not_quiting do
                             end
                     else        
                 end
-        
+            
         when "Exit"
             user_input = prompt.yes?('Are you sure you want to Quit?')
             not_quiting = true if user_input
-        system("clear")
-          
-    end
+        
+            system("clear")
+        end     
+    
     system("clear")
 end

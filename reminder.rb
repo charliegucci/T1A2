@@ -45,7 +45,7 @@ class Reminder
                             print box
                             pause
                         elsif user_input == "n"
-                        
+                            
                         else
                             prompt.warn("Invalid Selection")
                             pause        
