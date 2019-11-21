@@ -130,6 +130,7 @@ Deleting user input saved in a yaml file called @collection.yml<br>
 <br>
 Check first if theres data saved in the file, once done user execute the delete command and check the file if its deleted. All data still in placed. Code shown below.<br>
 <br>
+
 ### Test : Fail<br>
 <br>code:<br>
 
