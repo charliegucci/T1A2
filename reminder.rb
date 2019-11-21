@@ -5,6 +5,7 @@ class Reminder
    def initialize()
        @list_reminder =[]
    end
+        # iterates data from an array
    def opening_reminder()
        @list_reminder = YAML.load(File.read("@list_reminder.yml"))
        @list_reminder.each do |element|
@@ -16,7 +17,7 @@ class Reminder
            
            end
     end
-   
+        # adds data to an array
    def writing_reminder()
        prompt = TTY::Prompt.new
        box = TTY::Box.info("Journal Section")
@@ -28,7 +29,7 @@ class Reminder
        print box
        pause
    end
-
+        # removes data from an array
    def deleting_reminder()
        prompt = TTY::Prompt.new
        self.opening_reminder()

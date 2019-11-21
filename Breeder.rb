@@ -8,12 +8,12 @@ class Breeder
         @collection = []
         
     end
-    
+        # adds the input to an array
     def update_database(bird)
         @collection.push(bird)
         File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
     end    
-    
+        # iterates data on a array
     def list_stocks
             p = Pastel.new
             @collection = YAML.load(File.read("@collection.yml"))
@@ -29,7 +29,7 @@ class Breeder
             
             end
     end
-     
+        # removes data from an array
     def delete_stocks
         prompt = TTY::Prompt.new
         self.list_stocks
@@ -42,7 +42,7 @@ class Breeder
                     user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
                         if user_input == "y" 
                             File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
-                            box = TTY::Box.success("Notes Deleted")
+                            box = TTY::Box.success("Bird Record Deleted")
                             print box
                             pause
                         else
