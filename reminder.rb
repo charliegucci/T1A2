@@ -14,8 +14,8 @@ class Reminder
            end   
            print box 
            
-        end
-   end
+           end
+    end
    
    def writing_reminder()
        prompt = TTY::Prompt.new
@@ -31,35 +31,28 @@ class Reminder
 
    def deleting_reminder()
        prompt = TTY::Prompt.new
-       self.opening_reminder
+       self.opening_reminder()
        prompt.ok("Which of them you want to delete (e.g.) 1 - 10 first one at the top.")
        reminder_delete_input = gets.chomp.to_i
-       if reminder_delete_input.between?(1, @list_reminder.length)
-            @list_reminder.slice!(reminder_delete_input.to_i - 1)
-            box = TTY::Box.warn("Are you sure you want to delete?")
-                    print box
-                    user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
+            if reminder_delete_input.between?(1, @list_reminder.length)
+                @list_reminder.slice!(reminder_delete_input.to_i - 1)
+                box = TTY::Box.warn("Are you sure you want to delete?")
+                print box
+                user_input = prompt.ask("Press Y / N then hit Enter", required: true) 
                         if user_input == "y"
-                        File.open("@list_reminder.yml", "w") { |file| file.write(@list_reminder.to_yaml) }
-                        box = TTY::Box.success("Journal Deleted")
+                            File.open("@list_reminder.yml", "w") { |file| file.write(@list_reminder.to_yaml) }
+                            box = TTY::Box.success("Journal Deleted")
                             print box
                             pause
-                        elsif user_input == "n"
-                            
-                        else
-                            prompt.warn("Invalid Selection")
-                            pause        
+                       else
+                           deleting_reminder        
                         end
-        
-        
-        else 
-            box = TTY::Box.error("Invalid Choice")
-            print box
-            pause 
+            else 
+                box = TTY::Box.error("Invalid Choice")
+                print box
+                pause 
             end               
    end
-
-   
 
 end
 

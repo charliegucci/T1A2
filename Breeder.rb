@@ -48,7 +48,7 @@ class Breeder
                         else
                             delete_stocks
                         end
-            else 
+        else 
             box = TTY::Box.error("Invalid Choice")
             print box
             pause 

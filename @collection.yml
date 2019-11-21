@@ -1,7 +1,13 @@
 ---
 - !ruby/object:Bird
-  id_tag: '123'
+  id_tag: '1212'
+  type: Orangeface
+  mutation: Violet
+  sex: Hen
+  age: '4'
+- !ruby/object:Bird
+  id_tag: '54'
   type: Whitefaced
-  mutation: Green/Violet
-  sex: Cock
-  age: '1'
+  mutation: Turquiose
+  sex: Hen
+  age: '7'

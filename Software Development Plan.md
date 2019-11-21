@@ -61,7 +61,7 @@ Please find attached pdf file of the Control Flow Diagram.<br>
 * ## Implementation Plan
 ---
 We were given 12 days to finish the Terminal Application thus implementation of plan is essential in providing successful outcome.<br>
-The priority for the project is the partial Documentation and the Bird Database feature and was given 2-3 days to complete.<br>
+The priority for the project is the partial Documentation and the Bird Database feature and was given 2-3 days to complete. I choose to prioritize this feature because I believe this will be the blueprint of my application and other features can be with the same format. On the other hand documentation is important and as I go along with the project, bits and piece of information will be added to the documentation. As illustrated below in the Trello board, we provided checklist for both Documentation and Adding Database features.<br>
 <br>
 ![trello1](./trello_1.png)<br>
 <br>
@@ -69,14 +69,14 @@ The priority for the project is the partial Documentation and the Bird Database 
 <br>
 ![trello1](./trello_add_database.png)<br>
 <br>
-The next task were Adding Journal and still continuing the Documentation and were given 2 days deadline.<br>
+The next task were Adding Journal and still continuing the Documentation and were given 2 days deadline. Since we already did the Add Database feature on the previous task, we will have a guidelines on how to do the Adding Journal feature and pretty much it will be the same concept as the previous feature. Trello board shown below.
 ![trello1](./trello_2.png)<br>
 <br>
 ![trello1](./trello_documentation1.png)<br>
 <br>
 ![trello1](./trello_add_database1.png)<br>
 <br>
-The next task was still Documentation and added Deleting function of Database and Journal and were given 2-3 days to complete.<br>
+The next task was still Documentation and added Deleting function of Database and Journal and were given 2-3 days to complete. Like I said in the previous paragraph, Documentation will still be ongoing and this time it will be together with the Delete Database feature as shown in the Trello board below together will its individual checklist.
 <br>
 ![trello1](./trello_3.png)<br>
 <br>
@@ -84,7 +84,7 @@ The next task was still Documentation and added Deleting function of Database an
 <br>
 ![trello1](./trello_delete_database1.png)<br>
 <br>
-Finally the Bird Colour Calculator and Documentation were finished last.<br>
+Finally the Bird Colour Calculator and Documentation were finished last. Since this feature is the easiest to do we put it on the last priority and also by this time we should be finishing the rest of the documentation as shown on the Trello board below.
 <br>
 ![trello1](./trello_4.png)<br>
 <br>
@@ -106,10 +106,17 @@ Click [here](./help.md)<br>
 
 Saving the User Input written in a yaml file called @collection.yml <br>
 <br>
-Check first if the file was empty afterwards the user input all the data, checked the yaml file and all the data type where saved<br>
+Check first if the file was empty afterwards run the program and user input all the data, checked the yaml file and all the data type where not saved. Code was shown below.<br>
 <br>
-Test : Pass<br>
+### Test : Fail<br>
 
+<br>code:<br>
+
+```ruby
+File.open("@collection.yml", "a") { |file| file.write(@collection.to_yaml) }
+``` 
+Run another test using different parameter this time instead of using append, we used write this time and do the same process as above and all the datas were saved this time. Code shown below.<br>
+### Test : Pass<br>
 
 <br>code:<br>
 
@@ -121,10 +128,22 @@ File.open("@collection.yml", "w") { |file| file.write(@collection.to_yaml) }
 * **Test 2** <br>
 Deleting user input saved in a yaml file called @collection.yml<br>
 <br>
-Check first if theres data saved in the file, once done user execute the delete command and check the file if its deleted.<br>
+Check first if theres data saved in the file, once done user execute the delete command and check the file if its deleted. All data still in placed. Code shown below.<br>
 <br>
-Test : Pass<br>
+### Test : Fail<br>
+<br>code:<br>
 
+```ruby
+user_input = gets.chomp
+if user_input == "y" 
+    File.open("@collection.yml", "a") { |file| file.write(@collection.to_yaml) }
+else
+    delete_stocks
+end
+```
+Run another test using different parameter this time instead of using append, we used write this time and do the same process as above and all the datas were saved this time. Code shown below.<br>
+
+### Test: Pass
 <br>code:<br>
 
 ```ruby 
